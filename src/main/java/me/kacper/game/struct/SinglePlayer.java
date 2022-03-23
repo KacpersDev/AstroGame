@@ -1,6 +1,7 @@
 package me.kacper.game.struct;
 
 import lombok.Getter;
+import me.kacper.game.impl.GameTime;
 import me.kacper.game.mode.SinglePlayerMode;
 import me.kacper.player.Player;
 
@@ -16,12 +17,16 @@ public class SinglePlayer implements SinglePlayerMode {
     private String skin;
     private String username;
     private final Player player;
+    private final GameTime time;
+    private final JLabel timer;
 
     public SinglePlayer(){
 
         this.frame = new JFrame();
         this.panel = new JPanel();
         this.player = new Player(getUsername());
+        this.timer = new JLabel();
+        this.time = new GameTime();
     }
 
     @Override
@@ -42,6 +47,7 @@ public class SinglePlayer implements SinglePlayerMode {
     @Override
     public void createInterface(String title, int width, int height) {
         panel.setBackground(Color.BLACK);
+        time.calculateTime(timer, panel);
         frame.add(panel);
         frame.setTitle(title);
         frame.setSize(width, height);
